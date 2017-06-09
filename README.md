@@ -1,2 +1,2 @@
-# pinpoint-chrome-maven-openjdk
+# pinpointagent-chrome-maven-openjdk
 Pinpoint agent, Chrome, Maven and OpenJDK
