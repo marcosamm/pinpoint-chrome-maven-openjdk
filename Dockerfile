@@ -8,7 +8,7 @@ ENV PINPOINT_HOME /opt/pinpoint
 RUN apt-get update -qqy && \
     apt-get upgrade -qqy --no-install-recommends
 
-ADD https://github.com/marcosamm/pinpoint-bin-snapshots/blob/master/pinpoint-agent-$PINPOINT_VERSION.tar.gz /tmp
+ADD https://github.com/marcosamm/pinpoint-bin-snapshots/raw/master/pinpoint-agent-$PINPOINT_VERSION.tar.gz /tmp
 #ADD https://github.com/naver/pinpoint/releases/download/$PINPOINT_VERSION/pinpoint-agent-$PINPOINT_VERSION.tar.gz /tmp
 RUN mkdir -p $PINPOINT_HOME \
     && tar -xzvf /tmp/pinpoint-agent-$PINPOINT_VERSION.tar.gz -C $PINPOINT_HOME \
