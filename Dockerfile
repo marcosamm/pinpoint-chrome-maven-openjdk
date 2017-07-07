@@ -1,7 +1,7 @@
 FROM persapiens/chrome-maven-openjdk:58-3.5.0-8u131
 MAINTAINER Marcos Alexandre de Melo Medeiros <marcosamm@gmail.com>
 
-ENV PINPOINT_VERSION 1.6.1
+ENV PINPOINT_VERSION 1.6.2
 ENV PINPOINT_HOME /opt/pinpoint
 
 # update and upgrade
