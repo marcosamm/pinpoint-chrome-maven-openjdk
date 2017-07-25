@@ -2,7 +2,15 @@
 # TO_BUILD          docker build -t pinpoint-agent .
 # TO_RUN            docker run --name=pinpoint-agent pinpoint-agent
 # or
-# TO_RUN            docker run -e COLLECTOR_IP="198.162.0.18" -e PROFILER_APPLICATIONSERVERTYPE="TOMCAT" -e PROFILER_TOMCAT_CONDITIONAL_TRANSFORM="false" -e PROFILER_SAMPLING_RATE="1" -e PROFILER_JSON_JSONLIB="true" pinpoint-agent
+# TO_RUN            docker run -it \
+#                       -e COLLECTOR_IP="198.162.0.18" \
+#                       -e PROFILER_APPLICATIONSERVERTYPE="TOMCAT" \
+#                       -e PROFILER_TOMCAT_CONDITIONAL_TRANSFORM="false" \
+#                       -e PROFILER_SAMPLING_RATE="1" \
+#                       -e PROFILER_JSON_JSONLIB="true" \
+#                       -e PROFILER_JSON_JACKSON="true"\
+#                       -e PROFILER_JSON_GSON="true" \
+#                       pinpoint-agent
 
 FROM persapiens/chrome-maven-openjdk:58-3.5.0-8u131
 MAINTAINER Marcos Alexandre de Melo Medeiros <marcosamm@gmail.com>
@@ -25,4 +33,6 @@ RUN mkdir -p $PINPOINT_AGENT_HOME \
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/*
 
 ADD configure-agent.sh /usr/local/bin/
+RUN ["chmod", "+x", "/usr/local/bin/configure-agent.sh"]
 ENTRYPOINT ["/usr/local/bin/configure-agent.sh"]
+CMD ["bash"]
