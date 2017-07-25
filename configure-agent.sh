@@ -37,5 +37,4 @@ sed -i "s/profiler.json.jsonlib=false/profiler.json.jsonlib=${PROFILER_JSON_JSON
 if [ "$DISABLE_DEBUG" == "true" ]; then
     sed -i 's/level value="DEBUG"/level value="INFO"/' ${PINPOINT_AGENT_HOME}/lib/log4j.xml
 fi
-
-exec tail -f /dev/null
+exec "$@"
