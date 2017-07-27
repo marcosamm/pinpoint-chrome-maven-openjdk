@@ -32,7 +32,7 @@ RUN mkdir -p $PINPOINT_AGENT_HOME \
 # clean temporary files
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/*
 
-ADD configure-agent.sh /usr/local/bin/
+ADD https://raw.githubusercontent.com/marcosamm/docker-pinpoint/master/pinpoint-agent/configure-agent.sh /usr/local/bin/
 RUN ["chmod", "+x", "/usr/local/bin/configure-agent.sh"]
 ENTRYPOINT ["/usr/local/bin/configure-agent.sh"]
 CMD ["bash"]
