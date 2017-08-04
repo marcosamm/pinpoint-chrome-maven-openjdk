@@ -3,7 +3,7 @@
 # TO_RUN            docker run --name=pinpoint-agent pinpoint-agent
 # or
 # TO_RUN            docker run -it \
-#                       -e COLLECTOR_IP="198.162.0.18" \
+#                       -e COLLECTOR_IP="192.168.0.18" \
 #                       -e PROFILER_APPLICATIONSERVERTYPE="TOMCAT" \
 #                       -e PROFILER_TOMCAT_CONDITIONAL_TRANSFORM="false" \
 #                       -e PROFILER_SAMPLING_RATE="1" \
