@@ -18,21 +18,19 @@ MAINTAINER Marcos Alexandre de Melo Medeiros <marcosamm@gmail.com>
 ENV PINPOINT_VERSION 1.6.2
 ENV PINPOINT_AGENT_HOME /opt/pinpoint-agent
 
-# update and upgrade
 RUN apt-get update -qqy && \
-    apt-get upgrade -qqy --no-install-recommends
+  apt-get upgrade -qqy --no-install-recommends && \
+  apt-get install -qqy curl unzip && \
+  mkdir -p $PINPOINT_AGENT_HOME && \
+  curl -fsSL https://github.com/naver/pinpoint/releases/download/$PINPOINT_VERSION/pinpoint-agent-$PINPOINT_VERSION.tar.gz \
+  | tar -xzC $PINPOINT_AGENT_HOME && \
+  cd $PINPOINT_AGENT_HOME && \
+  mv pinpoint-bootstrap-$PINPOINT_VERSION.jar pinpoint-bootstrap.jar && \
+  curl -o /usr/local/bin/configure-agent.sh -fsSL https://raw.githubusercontent.com/marcosamm/docker-pinpoint/master/pinpoint-agent/configure-agent.sh && \
+  chmod +x /usr/local/bin/configure-agent.sh && \
+  apt-get remove --purge --auto-remove -y curl unzip && \
+  apt-get autoclean && apt-get --purge -y autoremove && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/*
 
-ADD https://github.com/naver/pinpoint/releases/download/$PINPOINT_VERSION/pinpoint-agent-$PINPOINT_VERSION.tar.gz /tmp
-RUN mkdir -p $PINPOINT_AGENT_HOME \
-    && tar -xzvf /tmp/pinpoint-agent-$PINPOINT_VERSION.tar.gz -C $PINPOINT_AGENT_HOME \
-    && rm /tmp/pinpoint-agent-$PINPOINT_VERSION.tar.gz \
-    && cd $PINPOINT_AGENT_HOME \
-    && mv pinpoint-bootstrap-$PINPOINT_VERSION.jar pinpoint-bootstrap.jar
-
-# clean temporary files
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/*
-
-ADD https://raw.githubusercontent.com/marcosamm/docker-pinpoint/master/pinpoint-agent/configure-agent.sh /usr/local/bin/
-RUN ["chmod", "+x", "/usr/local/bin/configure-agent.sh"]
 ENTRYPOINT ["/usr/local/bin/configure-agent.sh"]
 CMD ["bash"]
